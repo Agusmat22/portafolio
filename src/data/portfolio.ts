@@ -87,8 +87,11 @@ export const portfolioData = {
 
   projects: [
     { titleKey: "project1.title", descKey: "project1.desc", stack: [".NET 8", "C#", "SQL Server"], tags: ["ETL", "Healthcare", "Data Processing"] },
-    { titleKey: "project2.title", descKey: "project2.desc", stack: ["Next.js", "Prisma", ".NET 8", "C#", "SQL Server"], tags: ["Full-stack", "Enterprise", "Forms"] },
-    { titleKey: "project3.title", descKey: "project3.desc", stack: ["N8N", "AI", "Automation"], tags: ["AI", "Chatbot", "Automation"] }
+    { titleKey: "project2.title", descKey: "project2.desc", stack: ["Next.js", "Prisma", ".NET 8", "C#", "SQL Server"], tags: ["Full-stack", "Enterprise", "Forms", "2FA"] },
+    { titleKey: "project3.title", descKey: "project3.desc", stack: ["N8N", "AI", "Automation"], tags: ["AI", "Chatbot", "Automation"] },
+    { titleKey: "project4.title", descKey: "project4.desc", stack: [".NET 8", "C#", "Swagger", "Hangfire"], tags: ["API REST", "Clean Architecture", "Background Jobs"] },
+    { titleKey: "project5.title", descKey: "project5.desc", stack: ["NextJs", "React", "Typescript", "Tailwind CSS"], tags: ["Formularios Dinamicos", "Pasarelas de pagos", "Telemedicinas", "Facturacion Electronica"] },
+    { titleKey: "project6.title", descKey: "project6.desc", stack: ["NextJs", "React", "Typescript", "Tailwind CSS"], tags: ["Ecommerce", "Planes de salud", "Mercado pago", "Siro"] },
   ],
 
   education: [

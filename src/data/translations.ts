@@ -63,7 +63,12 @@ export const translations = {
     "project2.desc": "Intranet empresarial crítica con generación de formularios dinámicos",
     "project3.title": "AI Chatbot Ecommerce",
     "project3.desc": "Agente inteligente para automatización de atención al cliente en ecommerce",
-
+    "project4.title": "API REST Empresarial",
+    "project4.desc": "API REST con arquitectura limpia, documentación Swagger y procesamiento en segundo plano con Hangfire",
+    "project5.title": "Formularios Dinamicos & Pasarelas de pagos",
+    "project5.desc": "Formularios dinámicos y pasarelas de pagos para telemedicinas y facturación electrónica",
+    "project6.title": "Ecommerce MA & Planes de salud",
+    "project6.desc": "Ecommerce MA y planes de salud para la integración con Mercado pago y Siro",
     // Education
     "education.title": "Educación & Certificaciones",
     "education.academicTitle": "Formación Académica",
@@ -166,6 +171,12 @@ export const translations = {
     "project2.desc": "Critical enterprise intranet with dynamic form generation",
     "project3.title": "AI Chatbot Ecommerce",
     "project3.desc": "Intelligent agent for ecommerce customer service automation",
+    "project4.title": "Enterprise REST API",
+    "project4.desc": "REST API with clean architecture, Swagger documentation and background processing with Hangfire",
+    "project5.title": "Dynamic Forms & Payments",
+    "project5.desc": "Dynamic forms and payment gateways for telemedicine and electronic invoicing",
+    "project6.title": "Ecommerce MA & Health Plans",
+    "project6.desc": "Ecommerce MA and health plans for integration with Mercado pago and Siro",
 
     // Education
     "education.title": "Education & Certifications",
