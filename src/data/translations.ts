@@ -1,0 +1,210 @@
+export const translations = {
+  es: {
+    // Header
+    "nav.home": "Inicio",
+    "nav.experience": "Experiencia",
+    "nav.skills": "Skills",
+    "nav.projects": "Proyectos",
+    "nav.education": "Educación",
+    "nav.contact": "Contacto",
+
+    // Hero
+    "hero.title": "BACKEND DEVELOPER & CLOUD ENGINEER | AI SOLUTIONS",
+    "hero.subtitle": ".NET 8 · AWS · Next.js · GenAI Agents",
+    "hero.viewProjects": "Ver Proyectos",
+    "hero.contact": "Contactar",
+    "hero.scroll": "Desplazar",
+
+    // About
+    "about.title": "Sobre Mí",
+    "about.intro": "Desarrollador Backend apasionado por construir soluciones escalables y eficientes. Especializado en arquitecturas cloud-native, microservicios y AI generativa.",
+    "about.description": "Con experiencia en .NET 8, AWS y Next.js, me enfoco en crear sistemas robustos que resuelvan problemas complejos de negocio. Mi background en desarrollo Full Stack me permite entender la arquitectura completa de las aplicaciones, desde el frontend hasta la infraestructura cloud.",
+    "about.passion": "Me apasiona aprender nuevas tecnologías y aplicarlas para crear soluciones innovadoras. Actualmente trabajando en integración de IA Generativa con agentes autónomos y optimización de arquitecturas serverless en AWS.",
+    "about.yearsExperience": "Años de Experiencia",
+    "about.projectsCompleted": "Proyectos Completados",
+    "about.technologies": "Tecnologías Dominadas",
+    "about.certifications": "Certificaciones",
+
+    // Experience
+    "experience.title": "Experiencia Laboral",
+    "experience.position": "Backend Developer",
+    "experience.period": "Abril 2024 - Presente",
+    "experience.present": "Presente",
+    "exp.highlight1.title": "Full-stack & Desarrollo Web",
+    "exp.highlight1.desc": "Intranets críticas y generadores de formularios dinámicos con Next.js, TypeScript y Prisma",
+    "exp.highlight2.title": "IA & Ecosistema de Agentes",
+    "exp.highlight2.desc": "Agentes de voz inteligentes y flujos automatizados de atención al cliente con agentes de WhatsApp",
+    "exp.highlight3.title": "Modernización Cloud (AWS)",
+    "exp.highlight3.desc": "ECS, S3, EC2, arquitectura containerizada con Docker; migración de API de PHP a .NET 8 + EF",
+    "exp.highlight4.title": "Arquitectura de Agentes (MCP)",
+    "exp.highlight4.desc": "Servidor MCP (Model Context Protocol) y orquestadores con LangGraph",
+    "exp.highlight5.title": "Optimización & Seguridad",
+    "exp.highlight5.desc": "Implementación de Hangfire, RBAC, 2FA/MFA",
+    "exp.highlight6.title": "Integración & Pagos",
+    "exp.highlight6.desc": "+50 endpoints REST con Swagger; integración con MercadoPago, Siro, Bitrix, Tango",
+
+    // Skills
+    "skills.title": "Habilidades Técnicas",
+    "skills.cat.development": "Desarrollo",
+    "skills.cat.cloudDevops": "Cloud & DevOps (Fuerte)",
+    "skills.cat.ai": "IA & Automatización",
+    "skills.cat.databases": "Bases de Datos",
+    "skills.cat.orm": "ORM",
+    "skills.cat.architecture": "Arquitectura & Patrones",
+    "skills.level.expert": "Experto",
+    "skills.level.advanced": "Avanzado",
+    "skills.level.intermediate": "Intermedio",
+
+    // Projects
+    "projects.title": "Proyectos Destacados",
+    "project1.title": "DataMorpher",
+    "project1.desc": "Sistema ETL médico para transformación y migración de datos",
+    "project2.title": "Intranet",
+    "project2.desc": "Intranet empresarial crítica con generación de formularios dinámicos",
+    "project3.title": "AI Chatbot Ecommerce",
+    "project3.desc": "Agente inteligente para automatización de atención al cliente en ecommerce",
+
+    // Education
+    "education.title": "Educación & Certificaciones",
+    "education.academicTitle": "Formación Académica",
+    "education.languagesTitle": "Idiomas",
+    "education.degree1": "Tecnicatura Universitaria en Programación",
+    "education.period1": "Febrero 2023 - En curso",
+    "education.degree2": "Estudios de Idioma Inglés",
+    "education.period2": "Febrero 2024 - En curso",
+    "education.inProgress": "En curso",
+
+    // Languages
+    "languages.spanish": "Español",
+    "languages.english": "Inglés",
+    "languages.level.native": "Nativo",
+    "languages.level.b1": "B1",
+
+    // Contact
+    "contact.title": "Contacto",
+    "contact.subtitle": "¿Tienes un proyecto en mente? Hablemos sobre cómo puedo ayudarte a construir soluciones escalables y eficientes.",
+    "contact.email": "Email",
+    "contact.phone": "Teléfono",
+    "contact.location": "Ubicación",
+    "contact.viewProfile": "Ver perfil",
+    "contact.viewRepos": "Ver repositorios",
+    "contact.readyTitle": "¿Listo para trabajar juntos?",
+    "contact.readyDescription": "Estoy disponible para proyectos freelance, consultoría técnica, o posiciones full-time. Contáctame y construyamos algo increíble.",
+    "contact.sendEmail": "Enviar Email",
+    "contact.linkedin": "LinkedIn",
+    "contact.github": "GitHub",
+    "contact.quickLinks": "Enlaces Rápidos",
+    "contact.connect": "Conectar",
+
+    // Footer
+    "footer.madeWith": "Hecho con",
+    "footer.by": "por",
+    "footer.rights": "Todos los derechos reservados.",
+    "footer.brand": "Backend Developer & Cloud Engineer",
+  },
+  en: {
+    // Header
+    "nav.home": "Home",
+    "nav.experience": "Experience",
+    "nav.skills": "Skills",
+    "nav.projects": "Projects",
+    "nav.education": "Education",
+    "nav.contact": "Contact",
+
+    // Hero
+    "hero.title": "BACKEND DEVELOPER & CLOUD ENGINEER | AI SOLUTIONS",
+    "hero.subtitle": ".NET 8 · AWS · Next.js · GenAI Agents",
+    "hero.viewProjects": "View Projects",
+    "hero.contact": "Contact",
+    "hero.scroll": "Scroll",
+
+    // About
+    "about.title": "About Me",
+    "about.intro": "Backend Developer passionate about building scalable and efficient solutions. Specialized in cloud-native architectures, microservices, and generative AI.",
+    "about.description": "With experience in .NET 8, AWS, and Next.js, I focus on creating robust systems that solve complex business problems. My Full Stack development background allows me to understand the complete application architecture, from frontend to cloud infrastructure.",
+    "about.passion": "I'm passionate about learning new technologies and applying them to create innovative solutions. Currently working on Generative AI integration with autonomous agents and serverless architecture optimization in AWS.",
+    "about.yearsExperience": "Years of Experience",
+    "about.projectsCompleted": "Projects Completed",
+    "about.technologies": "Technologies Mastered",
+    "about.certifications": "Certifications",
+
+    // Experience
+    "experience.title": "Work Experience",
+    "experience.position": "Backend Developer",
+    "experience.period": "April 2024 - Present",
+    "experience.present": "Present",
+    "exp.highlight1.title": "Full-stack & Web Development",
+    "exp.highlight1.desc": "Critical intranets and dynamic form generators with Next.js, TypeScript, and Prisma",
+    "exp.highlight2.title": "AI & Agent Ecosystem",
+    "exp.highlight2.desc": "Intelligent voice agents and automated customer service flows with WhatsApp agents",
+    "exp.highlight3.title": "Cloud Modernization (AWS)",
+    "exp.highlight3.desc": "ECS, S3, EC2, containerized architecture with Docker; API migration from PHP to .NET 8 + EF",
+    "exp.highlight4.title": "Agent Architecture (MCP)",
+    "exp.highlight4.desc": "MCP server (Model Context Protocol) and orchestrators with LangGraph",
+    "exp.highlight5.title": "Optimization & Security",
+    "exp.highlight5.desc": "Hangfire, RBAC, 2FA/MFA implementation",
+    "exp.highlight6.title": "Integration & Payments",
+    "exp.highlight6.desc": "+50 REST endpoints with Swagger; integration with MercadoPago, Siro, Bitrix, Tango",
+
+    // Skills
+    "skills.title": "Technical Skills",
+    "skills.cat.development": "Development",
+    "skills.cat.cloudDevops": "Cloud & DevOps (Strong)",
+    "skills.cat.ai": "AI & Automation",
+    "skills.cat.databases": "Databases",
+    "skills.cat.orm": "ORM",
+    "skills.cat.architecture": "Architecture & Patterns",
+    "skills.level.expert": "Expert",
+    "skills.level.advanced": "Advanced",
+    "skills.level.intermediate": "Intermediate",
+
+    // Projects
+    "projects.title": "Featured Projects",
+    "project1.title": "DataMorpher",
+    "project1.desc": "Medical ETL system for data transformation and migration",
+    "project2.title": "Intranet",
+    "project2.desc": "Critical enterprise intranet with dynamic form generation",
+    "project3.title": "AI Chatbot Ecommerce",
+    "project3.desc": "Intelligent agent for ecommerce customer service automation",
+
+    // Education
+    "education.title": "Education & Certifications",
+    "education.academicTitle": "Academic Training",
+    "education.languagesTitle": "Languages",
+    "education.degree1": "University Degree in Programming",
+    "education.period1": "February 2023 - In Progress",
+    "education.degree2": "English Language Studies",
+    "education.period2": "February 2024 - In Progress",
+    "education.inProgress": "In Progress",
+
+    // Languages
+    "languages.spanish": "Spanish",
+    "languages.english": "English",
+    "languages.level.native": "Native",
+    "languages.level.b1": "B1",
+
+    // Contact
+    "contact.title": "Contact",
+    "contact.subtitle": "Have a project in mind? Let's talk about how I can help you build scalable and efficient solutions.",
+    "contact.email": "Email",
+    "contact.phone": "Phone",
+    "contact.location": "Location",
+    "contact.viewProfile": "View profile",
+    "contact.viewRepos": "View repositories",
+    "contact.readyTitle": "Ready to work together?",
+    "contact.readyDescription": "I'm available for freelance projects, technical consulting, or full-time positions. Contact me and let's build something amazing.",
+    "contact.sendEmail": "Send Email",
+    "contact.linkedin": "LinkedIn",
+    "contact.github": "GitHub",
+    "contact.quickLinks": "Quick Links",
+    "contact.connect": "Connect",
+
+    // Footer
+    "footer.madeWith": "Made with",
+    "footer.by": "by",
+    "footer.rights": "All rights reserved.",
+    "footer.brand": "Backend Developer & Cloud Engineer",
+  },
+};
+
+export type TranslationKey = keyof typeof translations.es;
