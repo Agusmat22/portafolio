@@ -19,5 +19,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: 'https://agusmat22.github.io/agustin'
+  base: 'https://agusmat22.github.io/portafolio'
 })
