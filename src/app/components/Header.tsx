@@ -5,6 +5,7 @@ import { Moon, Sun, Menu, X, Linkedin } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { portfolioData } from "@/data/portfolio";
+import { NAV_LINKS } from "@/lib/constants";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,18 +19,14 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { label: t("nav.home"), href: "#home" },
-    { label: t("nav.experience"), href: "#experience" },
-    { label: t("nav.skills"), href: "#skills" },
-    { label: t("nav.projects"), href: "#projects" },
-    { label: t("nav.education"), href: "#education" },
-    { label: t("nav.contact"), href: "#contact" },
-  ];
+  const navItems = NAV_LINKS.map((link) => ({
+    label: t(link.labelKey),
+    href: `#${link.id}`,
+  }));
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);

@@ -43,6 +43,10 @@ export const staggerContainer = (staggerDelay = 0.08): Variants => ({
   },
 });
 
+// Pre-computed stagger variants for common delays
+export const stagger008: Variants = staggerContainer(0.08);
+export const stagger010: Variants = staggerContainer(0.1);
+
 // Typewriter-style reveal (clip from left)
 export const clipReveal: Variants = {
   hidden: { clipPath: "inset(0 100% 0 0)" },

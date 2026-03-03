@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAnimatedInView } from "@/hooks/useAnimatedInView";
-import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
+import { stagger010, fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
 import { portfolioData } from "@/data/portfolio";
 import { GraduationCap, Calendar, Languages } from "lucide-react";
 import { Badge } from "@/app/components/ui/badge";
@@ -20,7 +20,7 @@ export function Education() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          variants={staggerContainer(0.1)}
+          variants={stagger010}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >

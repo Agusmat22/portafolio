@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { portfolioData } from "@/data/portfolio";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SECTION_IDS } from "@/lib/constants";
 import { MapPin, Linkedin, Github } from "lucide-react";
 import profileImage from "@/assets/0ddd0938ea253c1d07b7304f0ef6aa982b3e5fa5.png";
 
@@ -146,7 +147,7 @@ export function Hero() {
               <button
                 onClick={() =>
                   document
-                    .getElementById("projects")
+                    .getElementById(SECTION_IDS.projects)
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
                 className="font-mono text-sm px-5 py-2.5 bg-terminal-green text-background font-semibold rounded hover:shadow-[0_0_20px_rgba(0,255,136,0.3)] transition-all"
@@ -156,7 +157,7 @@ export function Hero() {
               <button
                 onClick={() =>
                   document
-                    .getElementById("contact")
+                    .getElementById(SECTION_IDS.contact)
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
                 className="font-mono text-sm px-5 py-2.5 border border-terminal-green/30 text-terminal-green rounded hover:bg-terminal-green/10 transition-all"

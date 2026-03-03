@@ -12,7 +12,6 @@ export type SectionId = (typeof SECTION_IDS)[keyof typeof SECTION_IDS];
 
 export const NAV_LINKS = [
   { id: SECTION_IDS.home, labelKey: "nav.home" },
-  { id: SECTION_IDS.about, labelKey: "nav.about" },
   { id: SECTION_IDS.experience, labelKey: "nav.experience" },
   { id: SECTION_IDS.skills, labelKey: "nav.skills" },
   { id: SECTION_IDS.projects, labelKey: "nav.projects" },

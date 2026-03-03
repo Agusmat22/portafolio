@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAnimatedInView } from "@/hooks/useAnimatedInView";
-import { staggerContainer, fadeInLeft } from "@/lib/animations";
+import { stagger008, fadeInLeft } from "@/lib/animations";
 import { portfolioData } from "@/data/portfolio";
 import { Badge } from "@/app/components/ui/badge";
 import { Terminal } from "lucide-react";
@@ -117,7 +117,7 @@ export function Projects() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          variants={staggerContainer(0.08)}
+          variants={stagger008}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
