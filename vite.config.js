@@ -19,5 +19,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: 'https://agusmat22.github.io/portafolio'
+  base: process.env.GITHUB_PAGES ? '/portafolio/' : '/'
 })
