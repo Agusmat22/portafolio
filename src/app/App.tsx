@@ -11,17 +11,27 @@ import { Projects } from "../app/components/Projects";
 import { Education } from "../app/components/Education";
 import { Contact } from "../app/components/Contact";
 import { Footer } from "../app/components/Footer";
+import { MatrixRain } from "../app/components/MatrixRain";
 
 export default function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
         <SmoothScroll>
-          <div className="min-h-screen bg-black text-white antialiased">
+          <div className="noise-overlay scanline-overlay min-h-screen bg-background text-foreground antialiased font-body">
+            {/* Skip to main content — accessibility */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-terminal-green focus:text-black focus:rounded focus:font-mono focus:text-sm"
+            >
+              Skip to main content
+            </a>
+
+            <MatrixRain />
             <ScrollProgress />
             <Header />
-            
-            <main className="relative">
+
+            <main id="main-content" className="relative">
               <Hero />
               <About />
               <Experience />
@@ -30,7 +40,7 @@ export default function App() {
               <Education />
               <Contact />
             </main>
-            
+
             <Footer />
           </div>
         </SmoothScroll>

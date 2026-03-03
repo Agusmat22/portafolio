@@ -1,98 +1,78 @@
 import { motion } from "motion/react";
-import { useInView } from "react-intersection-observer";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { portfolioData } from "@/data/portfolio";
+import { useAnimatedInView } from "@/hooks/useAnimatedInView";
+import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
 import { Briefcase, Target, Calendar, Award } from "lucide-react";
 
 export function About() {
   const { t } = useLanguage();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  const { ref, inView } = useAnimatedInView();
 
   const stats = [
-    { icon: Calendar, label: t("about.yearsExperience"), value: "2+" },
-    { icon: Briefcase, label: t("about.projectsCompleted"), value: "15+" },
-    { icon: Target, label: t("about.technologies"), value: "20+" },
-    { icon: Award, label: t("about.certifications"), value: "5+" },
+    { icon: Calendar, key: "experience", label: t("about.yearsExperience"), value: "2+" },
+    { icon: Briefcase, key: "projects", label: t("about.projectsCompleted"), value: "15+" },
+    { icon: Target, key: "tech", label: t("about.technologies"), value: "20+" },
+    { icon: Award, key: "certs", label: t("about.certifications"), value: "5+" },
   ];
 
   return (
-    <section id="about" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent -z-10" />
-      
-      <div className="container mx-auto px-4">
+    <section id="about" aria-label={t("about.title")} className="py-24 md:py-32 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          variants={containerVariants}
+          variants={staggerContainer(0.1)}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto"
         >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          {/* Section heading — terminal style */}
+          <motion.div className="mb-12 md:mb-16" variants={fadeInLeft}>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              <span className="text-terminal-green font-mono text-lg md:text-xl font-normal">{">"} </span>
               {t("about.title")}
+              <span className="text-terminal-green cursor-blink">_</span>
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-violet-600 to-cyan-600 mx-auto rounded-full" />
+            <div className="mt-3 h-px w-16 bg-terminal-green/40" />
           </motion.div>
 
-          <motion.div
-            variants={itemVariants}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 mb-8"
-          >
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              {t("about.intro")}
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              {t("about.description")}
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              {t("about.passion")}
-            </p>
-          </motion.div>
+          {/* Asymmetric layout: text 60% + stats 40% */}
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+            {/* Text content */}
+            <motion.div variants={fadeInLeft} className="lg:col-span-3">
+              <div className="border-l-2 border-terminal-green/30 pl-6 space-y-5">
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {t("about.intro")}
+                </p>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {t("about.description")}
+                </p>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {t("about.passion")}
+                </p>
+              </div>
+            </motion.div>
 
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
-          >
-            {stats.map((stat, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-br from-violet-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center"
-              >
-                <div className="inline-flex p-3 bg-violet-500/10 rounded-lg mb-3">
-                  <stat.icon className="w-6 h-6 text-violet-400" />
-                </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+            {/* Stats — terminal key:value style */}
+            <motion.div variants={fadeInRight} className="lg:col-span-2">
+              <div className="grid grid-cols-2 gap-3">
+                {stats.map((stat) => (
+                  <motion.div
+                    key={stat.key}
+                    variants={fadeInUp}
+                    whileHover={{ y: -4, borderColor: "rgba(0,255,136,0.3)" }}
+                    className="bg-surface border border-border rounded-lg p-5 transition-colors"
+                  >
+                    <stat.icon className="w-5 h-5 text-terminal-green mb-3" />
+                    <div className="font-display text-2xl font-bold text-terminal-green mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="font-mono text-xs text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

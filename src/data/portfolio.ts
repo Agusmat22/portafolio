@@ -52,7 +52,16 @@ export const portfolioData = {
         { name: "LangGraph", icon: "SiPython", levelKey: "skills.level.expert" },
         { name: "LangChain", icon: "SiPython", levelKey: "skills.level.expert" },
         { name: "MCP", icon: "SiOpenai", levelKey: "skills.level.advanced" },
+        { name: "Claude Code", icon: "SiClaude", levelKey: "skills.level.advanced" },
+        { name: "Cursor", icon: "SiCursor", levelKey: "skills.level.advanced" },
         { name: "N8N", icon: "SiN8n", levelKey: "skills.level.advanced" }
+      ]
+    },
+    cicd: {
+      categoryKey: "skills.cat.cicd",
+      items: [
+        { name: "GitHub Actions", icon: "SiGithubactions", levelKey: "skills.level.advanced" },
+        { name: "Claude CI/CD", icon: "SiClaude", levelKey: "skills.level.advanced" }
       ]
     },
     databases: {

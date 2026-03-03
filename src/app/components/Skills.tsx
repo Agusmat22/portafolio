@@ -1,30 +1,15 @@
 import { motion } from "motion/react";
-import { useInView } from "react-intersection-observer";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAnimatedInView } from "@/hooks/useAnimatedInView";
+import { staggerContainer, fadeInUp, fadeInLeft, scaleIn } from "@/lib/animations";
 import { portfolioData } from "@/data/portfolio";
 import {
-  Code2,
-  Database,
-  Cloud,
-  Cpu,
-  Server,
-  Shield,
-  Code,
-  FileCode,
-  GitBranch,
-  Container,
-  Terminal,
-  Workflow,
-  Brain,
-  Blocks,
-  Lock,
-  Key,
-  Settings,
-  Layers,
+  Code2, Database, Cloud, Code, FileCode, GitBranch,
+  Container, Terminal, Workflow, Brain, Blocks,
+  Shield, Key, Layers,
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/components/ui/tooltip";
 
-const iconMap: { [key: string]: any } = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   SiDotnet: Code2,
   SiNextdotjs: Layers,
   SiTypescript: FileCode,
@@ -47,104 +32,108 @@ const iconMap: { [key: string]: any } = {
   SiMicroservices: Blocks,
   SiMicrosoftsqlserver: Database,
   SiJsonwebtokens: Key,
+  SiClaude: Brain,
+  SiCursor: Terminal,
+};
+
+const levelColors: Record<string, string> = {
+  "skills.level.expert": "bg-terminal-green",
+  "skills.level.advanced": "bg-terminal-cyan",
+  "skills.level.intermediate": "bg-muted-foreground",
 };
 
 export function Skills() {
   const { t } = useLanguage();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
+  const { ref, inView } = useAnimatedInView();
 
   const skillCategories = [
-    portfolioData.skills.development,
-    portfolioData.skills.cloudDevops,
-    portfolioData.skills.ai,
-    portfolioData.skills.databases,
-    portfolioData.skills.orm,
-    portfolioData.skills.architecture,
+    { data: portfolioData.skills.development, size: "large" },
+    { data: portfolioData.skills.cloudDevops, size: "large" },
+    { data: portfolioData.skills.ai, size: "medium" },
+    { data: portfolioData.skills.databases, size: "medium" },
+    { data: portfolioData.skills.orm, size: "small" },
+    { data: portfolioData.skills.cicd, size: "small" },
+    { data: portfolioData.skills.architecture, size: "medium" },
   ];
 
   return (
-    <section id="skills" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent -z-10" />
-      
-      <div className="container mx-auto px-4">
+    <section id="skills" aria-label={t("skills.title")} className="py-24 md:py-32 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          variants={containerVariants}
+          variants={staggerContainer(0.08)}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          {/* Section heading */}
+          <motion.div className="mb-12 md:mb-16" variants={fadeInLeft}>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              <span className="text-terminal-green font-mono text-lg md:text-xl font-normal">{">"} </span>
               {t("skills.title")}
+              <span className="text-terminal-green cursor-blink">_</span>
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-violet-600 to-cyan-600 mx-auto rounded-full" />
+            <div className="mt-3 h-px w-16 bg-terminal-green/40" />
           </motion.div>
 
-          <div className="max-w-6xl mx-auto grid gap-8">
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {skillCategories.map((category, catIdx) => (
               <motion.div
                 key={catIdx}
-                variants={itemVariants}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 hover:bg-white/10 transition-all duration-300"
+                variants={scaleIn}
+                className={`bg-surface border border-border rounded-lg p-5 hover:border-terminal-green/20 transition-all ${
+                  category.size === "large" ? "lg:col-span-1" : ""
+                }`}
               >
-                <h3 className="text-xl md:text-2xl font-bold mb-6 text-cyan-400">
-                  {t(category.categoryKey as any)}
-                </h3>
-                
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {category.items.map((skill, skillIdx) => {
+                {/* Category header — code comment style */}
+                <div className="font-mono text-xs text-terminal-green/60 mb-4">
+                  {"// "}
+                  {t(category.data.categoryKey as any)}
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {category.data.items.map((skill, skillIdx) => {
                     const IconComponent = iconMap[skill.icon] || Code;
-                    
+                    const dotColor = levelColors[skill.levelKey] || "bg-muted-foreground";
+
                     return (
-                      <TooltipProvider key={skillIdx}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <motion.div
-                              whileHover={{ scale: 1.05, y: -5 }}
-                              whileTap={{ scale: 0.95 }}
-                              className="flex flex-col items-center justify-center p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-violet-500/30 transition-all duration-300 cursor-pointer group"
-                            >
-                              <IconComponent className="w-10 h-10 md:w-12 md:h-12 mb-3 text-gray-400 group-hover:text-violet-400 transition-colors duration-300" />
-                              <span className="text-xs md:text-sm text-center text-gray-300 group-hover:text-white transition-colors duration-300">
-                                {skill.name}
-                              </span>
-                            </motion.div>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="font-semibold">{t(skill.levelKey as any)}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <motion.div
+                        key={skillIdx}
+                        variants={fadeInUp}
+                        whileHover={{ y: -2 }}
+                        className="flex items-center gap-2 px-3 py-2 bg-background border border-border rounded hover:border-terminal-green/30 transition-all group"
+                      >
+                        <IconComponent className="w-4 h-4 text-muted-foreground group-hover:text-terminal-green transition-colors" />
+                        <span className="font-mono text-xs text-foreground">
+                          {skill.name}
+                        </span>
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${dotColor}`}
+                          title={t(skill.levelKey as any)}
+                        />
+                      </motion.div>
                     );
                   })}
                 </div>
               </motion.div>
             ))}
           </div>
+
+          {/* Legend */}
+          <motion.div variants={fadeInUp} className="mt-6 flex items-center gap-6 font-mono text-[10px] text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-terminal-green" />
+              {t("skills.level.expert")}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-terminal-cyan" />
+              {t("skills.level.advanced")}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+              {t("skills.level.intermediate")}
+            </span>
+          </motion.div>
         </motion.div>
       </div>
     </section>

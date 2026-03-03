@@ -1,11 +1,39 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { portfolioData } from "@/data/portfolio";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { MapPin, ArrowDown, Linkedin, Github } from "lucide-react";
-import { Badge } from "@/app/components/ui/badge";
-import { Button } from "@/app/components/ui/button";
+import { MapPin, Linkedin, Github } from "lucide-react";
 import profileImage from "@/assets/0ddd0938ea253c1d07b7304f0ef6aa982b3e5fa5.png";
+
+function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
+  const [displayed, setDisplayed] = useState("");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const startTimer = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(startTimer);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    if (displayed.length >= text.length) return;
+
+    const timer = setTimeout(() => {
+      setDisplayed(text.slice(0, displayed.length + 1));
+    }, 30 + Math.random() * 40);
+
+    return () => clearTimeout(timer);
+  }, [displayed, started, text]);
+
+  return (
+    <span>
+      {displayed}
+      {displayed.length < text.length && (
+        <span className="cursor-blink text-terminal-green">|</span>
+      )}
+    </span>
+  );
+}
 
 export function Hero() {
   const { t } = useLanguage();
@@ -16,174 +44,165 @@ export function Hero() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       id="home"
+      aria-label="Hero"
     >
-      {/* Animated gradient background */}
+      {/* Terminal grid background */}
       <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10"
-          animate={{
-            backgroundPosition: ["0% 0%", "100% 100%"],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4wNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30" />
+        <div className="terminal-grid-bg absolute inset-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
       <motion.div
-        className="container mx-auto px-4 py-20 md:py-32"
+        className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32"
         style={{ opacity, scale, y }}
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+          {/* Profile Image */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col md:flex-row items-center gap-8 md:gap-12"
+            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="relative shrink-0"
           >
-            {/* Profile Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative w-48 h-48 md:w-64 md:h-64">
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-cyan-500 rounded-full blur-2xl opacity-30 animate-pulse" />
-                <img
-                  src={profileImage}
-                  alt={portfolioData.personal.name}
-                  className="relative w-full h-full object-cover rounded-full border-4 border-white/10 shadow-2xl"
-                />
-              </div>
-            </motion.div>
-
-            {/* Content */}
-            <div className="flex-1 text-center md:text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <Badge variant="outline" className="mb-4 text-xs md:text-sm">
-                  <MapPin className="w-3 h-3 mr-1" />
-                  {portfolioData.personal.location}
-                </Badge>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent"
-              >
-                {portfolioData.personal.name}
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="text-xl md:text-2xl lg:text-3xl font-medium mb-4 text-violet-400"
-              >
-                {t("hero.title")}
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="text-base md:text-lg text-gray-400 mb-2"
-              >
-                {t("hero.subtitle")}
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="flex flex-wrap gap-4 justify-center md:justify-start mt-8"
-              >
-                <Button
-                  size="lg"
-                  onClick={() =>
-                    document
-                      .getElementById("projects")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700"
-                >
-                  {t("hero.viewProjects")}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() =>
-                    document
-                      .getElementById("contact")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                >
-                  {t("hero.contact")}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  onClick={() =>
-                    window.open(`https://${portfolioData.personal.linkedin}`, "_blank")
-                  }
-                  className="gap-2"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  {t("contact.linkedin")}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  onClick={() =>
-                    window.open(portfolioData.personal.github, "_blank")
-                  }
-                  className="gap-2"
-                >
-                  <Github className="w-5 h-5" />
-                  {t("contact.github")}
-                </Button>
-              </motion.div>
+            <div className="relative w-44 h-44 md:w-56 md:h-56">
+              <div className="absolute inset-0 rounded-full box-glow-green opacity-60" />
+              <img
+                src={profileImage}
+                alt={portfolioData.personal.name}
+                className="relative w-full h-full object-cover rounded-full border-2 border-terminal-green/30"
+              />
             </div>
           </motion.div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          >
+          {/* Terminal-style content */}
+          <div className="flex-1 text-center lg:text-left">
+            {/* Terminal prompt line */}
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-              className="flex flex-col items-center gap-2 text-gray-400"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="font-mono text-sm text-muted-foreground mb-4"
             >
-              <span className="text-sm">{t("hero.scroll")}</span>
-              <ArrowDown className="w-5 h-5" />
+              <span className="text-terminal-green">$</span> whoami
             </motion.div>
-          </motion.div>
+
+            {/* Name — massive Syne */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-800 text-terminal-green terminal-glow-sm mb-4 leading-[1.1]"
+            >
+              {portfolioData.personal.name}
+            </motion.h1>
+
+            {/* Role — terminal output */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="font-mono text-base md:text-lg text-muted-foreground mb-2"
+            >
+              <span className="text-terminal-green">{">"}</span>{" "}
+              <TypewriterText text={t("hero.title")} delay={800} />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="font-mono text-sm text-terminal-cyan mb-2"
+            >
+              <span className="text-muted-foreground">{">"}</span>{" "}
+              {t("hero.subtitle")}
+            </motion.div>
+
+            {/* Location badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+              className="font-mono text-xs text-muted-foreground mb-8 flex items-center gap-1.5 justify-center lg:justify-start"
+            >
+              <MapPin className="w-3 h-3 text-terminal-green" />
+              {portfolioData.personal.location}
+            </motion.div>
+
+            {/* CTAs — terminal commands */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="flex flex-wrap gap-3 justify-center lg:justify-start"
+            >
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("projects")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="font-mono text-sm px-5 py-2.5 bg-terminal-green text-background font-semibold rounded hover:shadow-[0_0_20px_rgba(0,255,136,0.3)] transition-all"
+              >
+                $ {t("hero.viewProjects")}
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="font-mono text-sm px-5 py-2.5 border border-terminal-green/30 text-terminal-green rounded hover:bg-terminal-green/10 transition-all"
+              >
+                $ {t("hero.contact")} --now
+              </button>
+              <a
+                href={`https://${portfolioData.personal.linkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm px-4 py-2.5 text-muted-foreground hover:text-terminal-green transition-colors flex items-center gap-2"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href={portfolioData.personal.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm px-4 py-2.5 text-muted-foreground hover:text-terminal-green transition-colors flex items-center gap-2"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+            </motion.div>
+          </div>
         </div>
+
+        {/* Scroll indicator — thin animated line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ height: [0, 40, 0] }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+            className="w-px bg-terminal-green/40 mx-auto"
+          />
+          <span className="font-mono text-[10px] text-muted-foreground mt-2 block">
+            {t("hero.scroll")}
+          </span>
+        </motion.div>
       </motion.div>
     </section>
   );

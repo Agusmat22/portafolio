@@ -1,86 +1,73 @@
 import { motion } from "motion/react";
-import { useInView } from "react-intersection-observer";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAnimatedInView } from "@/hooks/useAnimatedInView";
+import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
 import { portfolioData } from "@/data/portfolio";
 import { GraduationCap, Calendar, Languages } from "lucide-react";
 import { Badge } from "@/app/components/ui/badge";
 
 export function Education() {
   const { t } = useLanguage();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const { ref, inView } = useAnimatedInView();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
+  const langLevelWidth: Record<string, string> = {
+    "languages.level.native": "w-full",
+    "languages.level.b1": "w-3/5",
   };
 
   return (
-    <section id="education" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent -z-10" />
-      
-      <div className="container mx-auto px-4">
+    <section id="education" aria-label={t("education.title")} className="py-24 md:py-32 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
-          variants={containerVariants}
+          variants={staggerContainer(0.1)}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          {/* Section heading */}
+          <motion.div className="mb-12 md:mb-16" variants={fadeInLeft}>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              <span className="text-terminal-green font-mono text-lg md:text-xl font-normal">{">"} </span>
               {t("education.title")}
+              <span className="text-terminal-green cursor-blink">_</span>
             </h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-violet-600 to-cyan-600 mx-auto rounded-full" />
+            <div className="mt-3 h-px w-16 bg-terminal-green/40" />
           </motion.div>
 
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          {/* Layout: education 8/12, languages 4/12 */}
+          <div className="grid lg:grid-cols-12 gap-6">
             {/* Education */}
-            <motion.div variants={itemVariants}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-violet-500/10 rounded-lg">
-                  <GraduationCap className="w-6 h-6 text-violet-400" />
-                </div>
-                <h3 className="text-2xl font-bold">{t("education.academicTitle")}</h3>
+            <motion.div variants={fadeInLeft} className="lg:col-span-8">
+              <div className="flex items-center gap-2 mb-5">
+                <GraduationCap className="w-4 h-4 text-terminal-green" />
+                <h3 className="font-mono text-sm text-terminal-green">
+                  {t("education.academicTitle")}
+                </h3>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-3">
                 {portfolioData.education.map((edu, idx) => (
                   <motion.div
                     key={idx}
-                    whileHover={{ x: 5 }}
-                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
+                    variants={fadeInUp}
+                    whileHover={{ x: 4 }}
+                    className="bg-surface border border-border rounded-lg p-5 hover:border-terminal-green/20 transition-all"
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <h4 className="font-semibold text-lg text-violet-400">
+                    <div className="flex items-start justify-between mb-2">
+                      <h4 className="font-mono text-sm font-semibold text-foreground">
                         {edu.institution}
                       </h4>
                       {edu.status === "In Progress" && (
-                        <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                        <Badge variant="status">
                           {t("education.inProgress")}
                         </Badge>
                       )}
                     </div>
-                    <p className="text-gray-300 mb-2">{t(edu.degreeKey as any)}</p>
-                    <p className="text-sm text-gray-400 flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
+                    <p className="text-sm text-muted-foreground mb-1">
+                      {t(edu.degreeKey as any)}
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
                       {t(edu.periodKey as any)}
                     </p>
                   </motion.div>
@@ -89,34 +76,44 @@ export function Education() {
             </motion.div>
 
             {/* Languages */}
-            <motion.div variants={itemVariants}>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-cyan-500/10 rounded-lg">
-                  <Languages className="w-6 h-6 text-cyan-400" />
-                </div>
-                <h3 className="text-2xl font-bold">{t("education.languagesTitle")}</h3>
+            <motion.div variants={fadeInRight} className="lg:col-span-4">
+              <div className="flex items-center gap-2 mb-5">
+                <Languages className="w-4 h-4 text-terminal-cyan" />
+                <h3 className="font-mono text-sm text-terminal-cyan">
+                  {t("education.languagesTitle")}
+                </h3>
               </div>
 
-              <div className="space-y-6">
-                {portfolioData.languages.map((lang, idx) => (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ x: 5 }}
-                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-semibold text-lg text-cyan-400">
-                        {t(lang.nameKey as any)}
-                      </h4>
-                      <Badge
-                        variant="outline"
-                        className="border-cyan-500/30 bg-cyan-500/5"
-                      >
-                        {t(lang.levelKey as any)}
-                      </Badge>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="space-y-3">
+                {portfolioData.languages.map((lang, idx) => {
+                  const barWidth = langLevelWidth[lang.levelKey] || "w-2/5";
+
+                  return (
+                    <motion.div
+                      key={idx}
+                      variants={fadeInUp}
+                      className="bg-surface border border-border rounded-lg p-5"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-mono text-sm text-foreground">
+                          {t(lang.nameKey as any)}
+                        </span>
+                        <Badge variant="tag">
+                          {t(lang.levelKey as any)}
+                        </Badge>
+                      </div>
+                      {/* Proficiency bar */}
+                      <div className="h-1 bg-border rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={inView ? { width: "100%" } : { width: 0 }}
+                          transition={{ duration: 1, delay: 0.5 + idx * 0.2 }}
+                          className={`h-full bg-terminal-cyan rounded-full ${barWidth}`}
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           </div>
